@@ -79,7 +79,7 @@ export function Login(props: any)
                                type="checkbox"
                                className="toggle"/>
                     </div>
-                    <a className={"lg:justify-self-end text-sm"} href={"#"}>forgotten credentials?</a>
+                    <a className={"lg:justify-self-end text-sm"} href={"/"}>forgotten credentials?</a>
                 </div>
             </div>
         </>
