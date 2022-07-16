@@ -6,7 +6,7 @@ import './index.css';
 // {/*<App />*/}
 import reportWebVitals from './reportWebVitals';
 
-import {LoginComponent} from "./components/authentication/login";
+import {LoginComponent, Protected, Unprotected} from "./components/authentication/login";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -14,7 +14,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <LoginComponent/>
+        <Unprotected>
+            <LoginComponent/>
+        </Unprotected>
+        <Protected>
+
+        </Protected>
     </React.StrictMode>
 );
 

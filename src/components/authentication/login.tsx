@@ -1,5 +1,5 @@
 import {Logo} from "../../assets/assets";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Modal} from "../generic/generic";
 
 import {observer, useLocalObservable} from "mobx-react-lite";
@@ -88,7 +88,7 @@ export function Login(props: any)
             setModal({...modal, validationFailure: true});
 
             setTimeout(() => setModal({...modal, validationFailure: false}), 4_096);
-        } else if (!(await globalAuthentication.login(credentials, "failure")))
+        } else if (!(await globalAuthentication.login(credentials, "success")))
         {
             setModal({...modal, loginFailure: true});
 
@@ -98,7 +98,6 @@ export function Login(props: any)
 
     return (
         <>
-            {authenticationObservable.agentDetails?.username}
             <div className={"max-w-screen-md mx-auto"}>
                 <div className={"flex flex-col items-center space-y-3 p-3"}>
                     <Logo className={"mb-3.5"} variant={"white"}/>
@@ -135,3 +134,23 @@ export function Login(props: any)
 }
 
 export const LoginComponent = observer(Login);
+
+export const Unprotected = observer(({children}: { children: React.ReactNode }) =>
+{
+    let authenticationObservable = useLocalObservable(() => globalAuthentication);
+
+    if (authenticationObservable.isAuthenticated())
+        return null;
+    else
+        return <>{children}</>
+});
+
+export const Protected = observer(({children}: { children: React.ReactNode }) =>
+{
+    let authenticationObservable = useLocalObservable(() => globalAuthentication);
+
+    if (!authenticationObservable.isAuthenticated())
+        return null;
+    else
+        return <>{children}</>
+});
