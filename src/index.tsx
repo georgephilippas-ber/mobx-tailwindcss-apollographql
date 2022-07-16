@@ -7,12 +7,15 @@ import './index.css';
 
 import reportWebVitals from './reportWebVitals';
 
+import {Login} from "./components/authentication/login";
+
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
+
 root.render(
     <React.StrictMode>
-
+        <Login/>
     </React.StrictMode>
 );
 
