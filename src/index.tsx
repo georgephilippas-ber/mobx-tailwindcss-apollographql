@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
 // import App from './App';
 // {/*<App />*/}
-
 import reportWebVitals from './reportWebVitals';
 
-import {Login} from "./components/authentication/login";
+import {LoginOb} from "./components/authentication/login";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -15,7 +14,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <Login/>
+        <LoginOb/>
     </React.StrictMode>
 );
 

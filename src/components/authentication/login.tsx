@@ -2,7 +2,7 @@ import {Logo} from "../../assets/assets";
 import {useState} from "react";
 import {Modal} from "../generic/generic";
 
-import {useLocalObservable} from "mobx-react-lite";
+import {observer, useLocalObservable} from "mobx-react-lite";
 import {globalAuthentication} from "../../core/authentication";
 
 function MethodPassword(props: { onChange?: (credentials: string[]) => void })
@@ -76,20 +76,23 @@ export function Login(props: any)
 
     let [methodPasskey, setMethodPasskey] = useState<boolean>(true);
 
-    let [modal, setModal] = useState<{ login: boolean; validation: boolean }>({login: false, validation: false});
+    let [modal, setModal] = useState<{ loginFailure: boolean; validationFailure: boolean }>({
+        loginFailure: false,
+        validationFailure: false
+    });
 
     let onSubmit = async () =>
     {
         if (!validateCredentials(credentials))
         {
-            setModal({...modal, validation: true});
+            setModal({...modal, validationFailure: true});
 
-            setTimeout(() => setModal({...modal, validation: false}), 2_048);
-        } else if (!(await authenticationObservable.login(credentials, true)))
+            setTimeout(() => setModal({...modal, validationFailure: false}), 4_096);
+        } else if (!(await globalAuthentication.login(credentials, "failure")))
         {
-            setModal({...modal, login: true});
+            setModal({...modal, loginFailure: true});
 
-            setTimeout(() => setModal({...modal, login: false}), 2_048);
+            setTimeout(() => setModal({...modal, loginFailure: false}), 4_096);
         }
     }
 
@@ -121,10 +124,12 @@ export function Login(props: any)
                     <a className={"lg:justify-self-end text-sm"} href={"/"}>forgotten credentials?</a>
                 </div>
             </div>
-            <Modal onClose={() => setModal({...modal, validation: false})} header={"Credentials error"}
-                   text={"Please make sure you have provided login credentials"} display={modal.validation}/>
-            <Modal onClose={() => setModal({...modal, login: false})} header={"Login error"}
-                   text={"Please make sure the credentials you have provided are valid"} display={modal.login}/>
+            <Modal onClose={() => setModal({...modal, validationFailure: false})} header={"Credentials error"}
+                   text={"Please make sure you have provided login credentials"} display={modal.validationFailure}/>
+            <Modal onClose={() => setModal({...modal, loginFailure: false})} header={"Login error"}
+                   text={"Please make sure the credentials you have provided are valid"} display={modal.loginFailure}/>
         </>
     )
 }
+
+export const LoginOb = observer(Login);

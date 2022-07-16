@@ -20,10 +20,17 @@ export class Authentication
         makeAutoObservable(this);
     }
 
-    async login(credentials: string[], dummy: boolean = false): Promise<boolean>
+    async login(credentials: string[], dummy?: "success" | "failure" | "random"): Promise<boolean>
     {
         if (dummy)
         {
+            if (dummy === "failure")
+                return false;
+
+            if (dummy === "random")
+                if (Math.random() < 0.5)
+                    return false;
+
             this.agentDetails = {
                 agentId: -1,
                 username: faker.internet.userName().toLowerCase(),
