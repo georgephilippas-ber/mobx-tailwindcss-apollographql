@@ -2,6 +2,9 @@ import {Logo} from "../../assets/assets";
 import {useState} from "react";
 import {Modal} from "../generic/generic";
 
+import {useLocalObservable} from "mobx-react-lite";
+import {globalAuthentication} from "../../core/authentication";
+
 function MethodPassword(props: { onChange?: (credentials: string[]) => void })
 {
     let [credentials, setCredentials] = useState<string[]>(["", ""]);
@@ -67,20 +70,22 @@ function validateCredentials(credentials: string[]): boolean
 
 export function Login(props: any)
 {
+    let authenticationObservable = useLocalObservable(() => globalAuthentication);
+
     let [credentials, setCredentials] = useState<string []>([]);
 
     let [methodPasskey, setMethodPasskey] = useState<boolean>(true);
 
     let [modal, setModal] = useState<{ login: boolean; validation: boolean }>({login: false, validation: false});
 
-    let onSubmit = () =>
+    let onSubmit = async () =>
     {
         if (!validateCredentials(credentials))
         {
             setModal({...modal, validation: true});
 
             setTimeout(() => setModal({...modal, validation: false}), 2_048);
-        } else if (true)
+        } else if (!(await authenticationObservable.login(credentials, true)))
         {
             setModal({...modal, login: true});
 
@@ -90,6 +95,7 @@ export function Login(props: any)
 
     return (
         <>
+            {authenticationObservable.agentDetails?.username}
             <div className={"max-w-screen-md mx-auto"}>
                 <div className={"flex flex-col items-center space-y-3 p-3"}>
                     <Logo className={"mb-3.5"} variant={"white"}/>

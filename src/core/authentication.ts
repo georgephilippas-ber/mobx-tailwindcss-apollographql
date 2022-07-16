@@ -1,4 +1,5 @@
 import {faker} from "@faker-js/faker";
+import {makeAutoObservable} from "mobx";
 
 export class Authentication
 {
@@ -15,9 +16,11 @@ export class Authentication
         this.agentDetails = null;
 
         this.authenticationServerUrl = authenticationServerUrl;
+
+        makeAutoObservable(this);
     }
 
-    async login(dummy: boolean = false): Promise<boolean>
+    async login(credentials: string[], dummy: boolean = false): Promise<boolean>
     {
         if (dummy)
         {
@@ -52,3 +55,5 @@ export class Authentication
         return Boolean(this.agentDetails);
     }
 }
+
+export const globalAuthentication: Authentication = new Authentication("");
