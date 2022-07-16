@@ -124,10 +124,12 @@ export function Login(props: any)
                     <a className={"lg:justify-self-end text-sm"} href={"/"}>forgotten credentials?</a>
                 </div>
             </div>
-            <Modal onClose={() => setModal({...modal, validationFailure: false})} header={"Credentials error"}
-                   text={"Please make sure you have provided login credentials"} display={modal.validationFailure}/>
-            <Modal onClose={() => setModal({...modal, loginFailure: false})} header={"Login error"}
-                   text={"Please make sure the credentials you have provided are valid"} display={modal.loginFailure}/>
+            <Modal onClose={() => setModal({...modal, validationFailure: false})} header={"Missing Credentials"}
+                   text={"Some information is missing. Please make sure the credentials you have provided are correct and try again."}
+                   display={modal.validationFailure}/>
+            <Modal onClose={() => setModal({...modal, loginFailure: false})} header={"Access Denied"}
+                   text={"Please make sure the credentials you have provided correspond to an active account and are valid."}
+                   display={modal.loginFailure}/>
         </>
     )
 }
