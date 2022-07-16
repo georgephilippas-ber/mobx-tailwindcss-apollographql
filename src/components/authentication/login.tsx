@@ -1,40 +1,5 @@
 import {Logo} from "../../assets/assets";
-import {useEffect, useState} from "react";
-
-function Alert({
-                   alert_type = "alert-info",
-                   text, timeout, initialShow
-               }: { initialShow: boolean, alert_type?: "alert-success" | "alert-info" | "alert-error" | "alert-warning"; text?: string, timeout?: number })
-{
-
-    useEffect(() =>
-    {
-        if (initialShow && timeout)
-        {
-            setTimeout(() => setDisplay("none"), timeout);
-        }
-    }, [initialShow]);
-
-    let [display, setDisplay] = useState<"none" | "inherit">("inherit");
-
-    if (initialShow)
-    {
-        return (
-            <div style={{display, position: "fixed", bottom: "1em", left: "1em"}}
-                 className={`max-w-sm lg:max-w-lg alert ${alert_type} shadow-lg`}>
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                         className="stroke-current flex-shrink-0 w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <span>{text}</span>
-                </div>
-            </div>
-        )
-    } else
-        return null;
-}
+import {useState} from "react";
 
 function MethodPassword(props: { onChange?: (credentials: string[]) => void })
 {
@@ -90,16 +55,6 @@ export function Login(props: any)
 
     let [methodPasskey, setMethodPasskey] = useState<boolean>(true);
 
-    let validateCredentials = (credentials: string[]) =>
-    {
-        console.log("validating", credentials);
-    }
-
-    let requestLogin = (credentials: string[]) =>
-    {
-        console.log("login");
-    }
-
     return (
         <>
             <div className={"max-w-screen-md mx-auto"}>
@@ -110,13 +65,12 @@ export function Login(props: any)
                         <MethodPassword onChange={credentials1 => setCredentials(credentials1)}/> :
                         <MethodPasskey onChange={credentials1 => setCredentials(credentials1)}/>}
 
-                    <div onClick={event => validateCredentials(credentials)}
-                         className={"flex flex-col max-w-lg space-x-4 items-center justify-between"}>
+                    <div className={"flex flex-col max-w-lg space-x-4 items-center justify-between"}>
                         <button className="btn">Login</button>
                     </div>
                 </div>
 
-                <div className={"w-full grid grid-cols-1 gap-2 lg:grid-cols-2 items-center mt-4"}>
+                <div className={"w-full ml-2 grid grid-cols-1 gap-2 lg:grid-cols-2 items-center mt-4"}>
                     <div className={"flex flex-row items-center space-x-3"}>
                         <div>
                             {methodPasskey ? "passkey" : "username | password"}
@@ -125,10 +79,9 @@ export function Login(props: any)
                                type="checkbox"
                                className="toggle"/>
                     </div>
-                    <a className={"lg:justify-self-end"} href={"#"}>forgotten credentials?</a>
+                    <a className={"lg:justify-self-end text-sm"} href={"#"}>forgotten credentials?</a>
                 </div>
             </div>
-            <Alert initialShow={true} text={"Test message"} timeout={2_000}/>
         </>
     )
 }
