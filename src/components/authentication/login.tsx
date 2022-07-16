@@ -1,5 +1,6 @@
 import {Logo} from "../../assets/assets";
 import {useState} from "react";
+import {Modal} from "../generic/generic";
 
 function MethodPassword(props: { onChange?: (credentials: string[]) => void })
 {
@@ -49,11 +50,43 @@ function MethodPasskey(props: { onChange?: (credentials: string[]) => void })
     )
 }
 
+function validateCredentials(credentials: string[]): boolean
+{
+    switch (credentials.length)
+    {
+        case 0:
+            return false;
+        case 1:
+            return Boolean(credentials[0]);
+        case 2:
+            return Boolean(credentials[0] && credentials[1]);
+        default:
+            return false;
+    }
+}
+
 export function Login(props: any)
 {
-    let [credentials, setCredentials] = useState<string []>(["", ""]);
+    let [credentials, setCredentials] = useState<string []>([]);
 
     let [methodPasskey, setMethodPasskey] = useState<boolean>(true);
+
+    let [modal, setModal] = useState<{ login: boolean; validation: boolean }>({login: false, validation: false});
+
+    let onSubmit = () =>
+    {
+        if (!validateCredentials(credentials))
+        {
+            setModal({...modal, validation: true});
+
+            setTimeout(() => setModal({...modal, validation: false}), 2_048);
+        } else if (true)
+        {
+            setModal({...modal, login: true});
+
+            setTimeout(() => setModal({...modal, login: false}), 2_048);
+        }
+    }
 
     return (
         <>
@@ -66,7 +99,7 @@ export function Login(props: any)
                         <MethodPasskey onChange={credentials1 => setCredentials(credentials1)}/>}
 
                     <div className={"flex flex-col max-w-lg space-x-4 items-center justify-between"}>
-                        <button className="btn">Login</button>
+                        <button onClick={onSubmit} className="btn">Login</button>
                     </div>
                 </div>
 
@@ -82,6 +115,10 @@ export function Login(props: any)
                     <a className={"lg:justify-self-end text-sm"} href={"/"}>forgotten credentials?</a>
                 </div>
             </div>
+            <Modal onClose={() => setModal({...modal, validation: false})} header={"Credentials error"}
+                   text={"Please make sure you have provided login credentials"} display={modal.validation}/>
+            <Modal onClose={() => setModal({...modal, login: false})} header={"Login error"}
+                   text={"Please make sure the credentials you have provided are valid"} display={modal.login}/>
         </>
     )
 }
