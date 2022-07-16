@@ -128,10 +128,10 @@ export function Login(props: any)
                    text={"Some information is missing. Please make sure the credentials you have provided are correct and try again."}
                    display={modal.validationFailure}/>
             <Modal onClose={() => setModal({...modal, loginFailure: false})} header={"Access Denied"}
-                   text={"Please make sure the credentials you have provided correspond to an active account and are valid."}
+                   text={"Please make sure the credentials you have provided are valid and correspond to an active account."}
                    display={modal.loginFailure}/>
         </>
     )
 }
 
-export const LoginOb = observer(Login);
+export const LoginComponent = observer(Login);

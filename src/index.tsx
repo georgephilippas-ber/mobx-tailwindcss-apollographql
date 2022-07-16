@@ -6,7 +6,7 @@ import './index.css';
 // {/*<App />*/}
 import reportWebVitals from './reportWebVitals';
 
-import {LoginOb} from "./components/authentication/login";
+import {LoginComponent} from "./components/authentication/login";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <LoginOb/>
+        <LoginComponent/>
     </React.StrictMode>
 );
 
