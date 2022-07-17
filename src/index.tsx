@@ -6,7 +6,8 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 import {LoginComponent, Protected, Unprotected} from "./components/authentication/login";
-import {MainDrawer, NavigationBar} from "./components/navigation/navigation";
+import {Drawer, MainScreen} from "./components/navigation/navigation";
+import {BrowserRouter} from "react-router-dom";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -16,20 +17,22 @@ let Main = () =>
 {
     return (
         <>
-            <NavigationBar/>
+            <MainScreen/>
         </>
     )
 }
 
 root.render(
     <React.StrictMode>
-        {/*<Unprotected>*/}
-        {/*    <LoginComponent/>*/}
-        {/*</Unprotected>*/}
-        {/*<Protected>*/}
-        {/*    <Main/>*/}
-        {/*</Protected>*/}
-        <Main/>
+        <BrowserRouter>
+            {/*<Unprotected>*/}
+            {/*    <LoginComponent/>*/}
+            {/*</Unprotected>*/}
+            {/*<Protected>*/}
+            {/*    <Main/>*/}
+            {/*</Protected>*/}
+            <Main/>
+        </BrowserRouter>
     </React.StrictMode>
 );
 
