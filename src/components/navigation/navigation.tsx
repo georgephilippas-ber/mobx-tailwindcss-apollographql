@@ -1,8 +1,8 @@
 import "./navigation.css";
 
 import {Logo} from "../../assets/assets";
-import {MouseEventHandler, ReactNode, useState} from "react";
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import React, {MouseEventHandler, ReactNode, useState} from "react";
+import {LogoutLink} from "./links/logout-link";
 
 export function NavigationBar(props: { onClick?: MouseEventHandler<HTMLDivElement> })
 {
@@ -14,45 +14,41 @@ export function NavigationBar(props: { onClick?: MouseEventHandler<HTMLDivElemen
     )
 }
 
-export function Feature(props: { children?: ReactNode })
+export function Drawer(props: { display?: boolean; onClick?: MouseEventHandler<HTMLDivElement>; drawerLinks: React.FC<any>[] })
 {
     return (
-        <div className={"w-full h-full relative"}>
+        <div onClick={props.onClick}
+             className={["drawer-class h-full shadow-lg ", (props.display ? "w-60" : "w-0")].join(" ")}>
+            <div className={"w-full flex flex-col item-start"}>
+                {props.drawerLinks.map((Component, index) => <Component key={index}/>)}
+            </div>
+        </div>
+    )
+}
+
+function FeatureScreen(props: { children?: ReactNode; onClick?: MouseEventHandler<HTMLDivElement> })
+{
+    return (
+        <div onClick={props.onClick} className={"w-full h-full relative"}>
             {props.children}
         </div>
     )
 }
 
-export function MainScreen(props: { children?: ReactNode })
+export function MainScreen(props: { children?: ReactNode; drawerLinks: React.FC[] })
 {
     let [drawerDisplay, setDrawerDisplay] = useState<boolean>(false);
 
     return (
         <div className={"flex flex-col w-screen h-screen"}>
             <NavigationBar onClick={event => setDrawerDisplay(!drawerDisplay)}/>
-            <Feature>
-                <Drawer display={drawerDisplay}/>
-                {/* Router?  */}
-                <Routes>
-                    <Route path={"/"} element={<div>GOTCHA</div>}/>
-                    <Route path={"/products"} element={<div>set up products here</div>}/>
-                </Routes>
-            </Feature>
+            <FeatureScreen>
+                <Drawer drawerLinks={props.drawerLinks} display={drawerDisplay}
+                        onClick={() => setDrawerDisplay(!drawerDisplay)}/>
+                {props.children}
+            </FeatureScreen>
         </div>
     )
 }
 
-export function Drawer(props: { display?: boolean; onClick?: MouseEventHandler<HTMLDivElement> })
-{
 
-    let displayClass = props.display ? "w-60" : "w-0";
-
-    return (
-        <div onClick={props.onClick} className={["drawer-class h-full shadow-lg ", displayClass].join(" ")}>
-            <div className={"w-full flex flex-col item-start"}>
-                <Link to={"/"}>This is the link to MAIN</Link>
-                <Link to={"/products"}>This is the link to here</Link>
-            </div>
-        </div>
-    )
-}

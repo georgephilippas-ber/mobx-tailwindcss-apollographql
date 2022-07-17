@@ -1,3 +1,5 @@
+import React from "react";
+
 export function Modal(props: { header: string; text: string; display?: boolean; onClose?: () => void })
 {
     return (

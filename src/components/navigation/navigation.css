@@ -1,7 +1,7 @@
-.drawer-class
-{
+.drawer-class {
     position: absolute;
-
+    overflow-x: hidden;
+    overflow-y: auto;
 
     right: 0;
     bottom: 0;

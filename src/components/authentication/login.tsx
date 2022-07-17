@@ -1,6 +1,6 @@
 import {Logo} from "../../assets/assets";
 import React, {useState} from "react";
-import {Modal} from "../generic/generic";
+import {Modal} from "../generic/modal";
 
 import {observer, useLocalObservable} from "mobx-react-lite";
 import {globalAuthentication} from "../../core/authentication";

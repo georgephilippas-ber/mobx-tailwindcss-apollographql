@@ -6,32 +6,48 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 import {LoginComponent, Protected, Unprotected} from "./components/authentication/login";
-import {Drawer, MainScreen} from "./components/navigation/navigation";
-import {BrowserRouter} from "react-router-dom";
+import {MainScreen} from "./components/navigation/navigation";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {LogoutLink} from "./components/navigation/links/logout-link";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-let Main = () =>
+let App = () =>
 {
     return (
         <>
-            <MainScreen/>
+            <MainScreen drawerLinks={[LogoutLink]}>
+                <Routes>
+                    <Route path={"/"} element={<div>GOTCHA</div>}/>
+                    <Route path={"/products"} element={<div>set up products here</div>}/>
+                </Routes>
+            </MainScreen>
         </>
     )
 }
 
+let WithAuthentication = () =>
+{
+    return (
+        <>
+            <Unprotected>
+                <LoginComponent/>
+            </Unprotected>
+            <Protected>
+                <App/>
+            </Protected>
+        </>
+    )
+}
+
+const mode: "development" | "production" | string = "development";
+
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            {/*<Unprotected>*/}
-            {/*    <LoginComponent/>*/}
-            {/*</Unprotected>*/}
-            {/*<Protected>*/}
-            {/*    <Main/>*/}
-            {/*</Protected>*/}
-            <Main/>
+            {mode === "production" ? <WithAuthentication/> : <App/>}
         </BrowserRouter>
     </React.StrictMode>
 );
