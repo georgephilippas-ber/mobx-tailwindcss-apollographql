@@ -19,15 +19,14 @@ export function NavigationBar()
 
     return (
         <div className={"flex flex-col w-screen h-screen"}>
-            <div className="navbar bg-base-100 shadow-lg flex flex-row justify-end">
+            <div onClick={event => setDrawerDisplay(!drawerDisplay)}
+                 className="navbar bg-base-100 shadow-lg flex flex-row justify-end">
                 <button onClick={event => setDrawerDisplay(!drawerDisplay)}>
                     <Logo width={"8em"} variant={"color"}/></button>
             </div>
             <div className={"w-full h-full border-2 relative"}>
                 <MainDrawer display={drawerDisplay}/>
             </div>
-
-
         </div>
     )
 }
@@ -39,7 +38,9 @@ export function MainDrawer(props: { display?: boolean })
 
     return (
         <div className={["drawer-class h-full", displayClass].join(" ")}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium at commodi corporis, earum est impedit inventore ipsa iusto magnam maxime nemo nesciunt nihil placeat quisquam saepe vitae voluptatem. Iusto, mollitia.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium at commodi corporis, earum est impedit
+            inventore ipsa iusto magnam maxime nemo nesciunt nihil placeat quisquam saepe vitae voluptatem. Iusto,
+            mollitia.
         </div>
     )
 }
