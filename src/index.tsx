@@ -8,9 +8,10 @@ import reportWebVitals from './reportWebVitals';
 import {LoginComponent, Protected, Unprotected} from "./components/authentication/login";
 import {MainScreen} from "./components/navigation/navigation";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Links, ProfileLink} from "./components/navigation/links/links";
+import {HomeLink, LogOutLink, ProfileLink} from "./components/navigation/links/links";
 import {ApolloProvider} from "@apollo/client";
 import {apolloClient} from "./core/apollo-client";
+import {Default} from "./features/default/default";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -20,11 +21,10 @@ const App = (props: any) =>
 {
     return (
         <ApolloProvider client={apolloClient}>
-            <MainScreen drawerLinks={[ProfileLink, Links]}>
+            <MainScreen drawerLinks={[HomeLink, ProfileLink, LogOutLink]}>
                 <Routes>
-                    <Route path={"/"} element={<div>GOTCHA</div>}/>
+                    <Route path={"/"} element={<Default/>}/>
                     <Route path={"/profile"} element={<div>Account Settings go here</div>}/>
-                    <Route path={"/products"} element={<div>set up products here</div>}/>
                 </Routes>
             </MainScreen>
         </ApolloProvider>
