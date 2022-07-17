@@ -5,13 +5,16 @@ import './index.css';
 // {/*<App />*/}
 import reportWebVitals from './reportWebVitals';
 
-import {LoginComponent, Protected, Unprotected} from "./components/authentication/login";
-import {MainScreen} from "./components/navigation/navigation";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {HomeLink, LogOutLink, ProfileLink} from "./components/navigation/links/links";
 import {ApolloProvider} from "@apollo/client";
 import {apolloClient} from "./core/apollo-client";
+
+import {LoginComponent, Protected, Unprotected} from "./components/authentication/login";
+import {MainScreen} from "./components/navigation/navigation";
+
+import {HomeLink, LogOutLink, ProfileLink} from "./components/navigation/links/links";
 import {Default} from "./features/default/default";
+import {Profile} from "./features/profile/profile";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -24,7 +27,7 @@ const App = (props: any) =>
             <MainScreen drawerLinks={[HomeLink, ProfileLink, LogOutLink]}>
                 <Routes>
                     <Route path={"/"} element={<Default/>}/>
-                    <Route path={"/profile"} element={<div>Account Settings go here</div>}/>
+                    <Route path={"/profile"} element={<Profile/>}/>
                 </Routes>
             </MainScreen>
         </ApolloProvider>
@@ -54,6 +57,7 @@ root.render(
         </BrowserRouter>
     </React.StrictMode>
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
