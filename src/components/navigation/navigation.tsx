@@ -2,7 +2,6 @@ import "./navigation.css";
 
 import {Logo} from "../../assets/assets";
 import React, {MouseEventHandler, ReactNode, useState} from "react";
-import {LogoutLink} from "./links/logout-link";
 
 export function NavigationBar(props: { onClick?: MouseEventHandler<HTMLDivElement> })
 {
@@ -50,5 +49,3 @@ export function MainScreen(props: { children?: ReactNode; drawerLinks: React.FC[
         </div>
     )
 }
-
-

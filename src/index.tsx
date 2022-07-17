@@ -8,27 +8,30 @@ import reportWebVitals from './reportWebVitals';
 import {LoginComponent, Protected, Unprotected} from "./components/authentication/login";
 import {MainScreen} from "./components/navigation/navigation";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {LogoutLink} from "./components/navigation/links/logout-link";
+import {Links, ProfileLink} from "./components/navigation/links/links";
+import {ApolloProvider} from "@apollo/client";
+import {apolloClient} from "./core/apollo-client";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-let App = () =>
+const App = (props: any) =>
 {
     return (
-        <>
-            <MainScreen drawerLinks={[LogoutLink]}>
+        <ApolloProvider client={apolloClient}>
+            <MainScreen drawerLinks={[ProfileLink, Links]}>
                 <Routes>
                     <Route path={"/"} element={<div>GOTCHA</div>}/>
+                    <Route path={"/profile"} element={<div>Account Settings go here</div>}/>
                     <Route path={"/products"} element={<div>set up products here</div>}/>
                 </Routes>
             </MainScreen>
-        </>
+        </ApolloProvider>
     )
 }
 
-let WithAuthentication = () =>
+let WithAuthentication = (props: any) =>
 {
     return (
         <>

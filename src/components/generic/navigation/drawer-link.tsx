@@ -8,7 +8,7 @@ export function DrawerLink({
 {
     let Component = () => (
         <div onClick={onClick}
-             className={"w-full h-9 flex flex-row justify-start items-center space-x-4 select-none"}>
+             className={"m-2 shadow-md p-6 w-full h-9 flex flex-row justify-start items-center space-x-4 select-none"}>
             {Icon ? <Icon className={"w-6"}/> : null}
             <div>
                 {label}
