@@ -32,10 +32,10 @@ export function MainScreen(props: { children?: ReactNode })
             <NavigationBar onClick={event => setDrawerDisplay(!drawerDisplay)}/>
             <Feature>
                 <Drawer display={drawerDisplay}/>
-
                 {/* Router?  */}
                 <Routes>
                     <Route path={"/"} element={<div>GOTCHA</div>}/>
+                    <Route path={"/products"} element={<div>set up products here</div>}/>
                 </Routes>
             </Feature>
         </div>
@@ -45,11 +45,14 @@ export function MainScreen(props: { children?: ReactNode })
 export function Drawer(props: { display?: boolean; onClick?: MouseEventHandler<HTMLDivElement> })
 {
 
-    let displayClass = props.display ? "w-2" : "w-0";
+    let displayClass = props.display ? "w-60" : "w-0";
 
     return (
         <div onClick={props.onClick} className={["drawer-class h-full shadow-lg ", displayClass].join(" ")}>
-            <Link to={"/"}>This is the link to here</Link>
+            <div className={"w-full flex flex-col item-start"}>
+                <Link to={"/"}>This is the link to MAIN</Link>
+                <Link to={"/products"}>This is the link to here</Link>
+            </div>
         </div>
     )
 }
