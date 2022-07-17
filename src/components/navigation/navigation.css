@@ -1,0 +1,10 @@
+.drawer-class
+{
+    position: absolute;
+
+
+    right: 0;
+    bottom: 0;
+
+    transition: width ease-in-out 400ms;
+}

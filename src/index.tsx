@@ -1,26 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-
 // import App from './App';
 // {/*<App />*/}
 import reportWebVitals from './reportWebVitals';
 
 import {LoginComponent, Protected, Unprotected} from "./components/authentication/login";
-import {NavBar} from "./components/navigation/navigation";
+import {MainDrawer, NavigationBar} from "./components/navigation/navigation";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
+let Main = () =>
+{
+    return (
+        <>
+            <NavigationBar/>
+        </>
+    )
+}
+
 root.render(
     <React.StrictMode>
-        <Unprotected>
-            <LoginComponent/>
-        </Unprotected>
-        <Protected>
-            <NavBar/>
-        </Protected>
+        {/*<Unprotected>*/}
+        {/*    <LoginComponent/>*/}
+        {/*</Unprotected>*/}
+        {/*<Protected>*/}
+        {/*    <Main/>*/}
+        {/*</Protected>*/}
+        <Main/>
     </React.StrictMode>
 );
 
