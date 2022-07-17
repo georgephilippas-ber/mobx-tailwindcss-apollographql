@@ -45,7 +45,7 @@ let WithAuthentication = (props: any) =>
     )
 }
 
-const mode: "development" | "production" | string = "development";
+const mode: "development" | "production" | string = "production";
 
 root.render(
     <React.StrictMode>
