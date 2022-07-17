@@ -1,5 +1,6 @@
 import {faker} from "@faker-js/faker";
 import {makeAutoObservable} from "mobx";
+import axios from "axios";
 
 export class Authentication
 {
@@ -20,15 +21,15 @@ export class Authentication
         makeAutoObservable(this);
     }
 
-    async login(credentials: string[], dummy?: "success" | "failure" | "random"): Promise<boolean>
+    async login(credentials: string[], dummy?: "success" | "failure" | number): Promise<boolean>
     {
         if (dummy)
         {
             if (dummy === "failure")
                 return false;
 
-            if (dummy === "random")
-                if (Math.random() < 0.5)
+            if (typeof dummy === "number")
+                if (Math.random() > dummy)
                     return false;
 
             this.agentDetails = {
@@ -40,7 +41,15 @@ export class Authentication
             return true;
         } else
         {
-            return true;
+            try
+            {
+                await axios.post("", {credentials});
+
+                return true;
+            } catch (e)
+            {
+                return false;
+            }
         }
     }
 

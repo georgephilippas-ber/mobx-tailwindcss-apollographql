@@ -7,6 +7,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 import {LoginComponent, Protected, Unprotected} from "./components/authentication/login";
+import {NavBar} from "./components/navigation/navigation";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -18,7 +19,7 @@ root.render(
             <LoginComponent/>
         </Unprotected>
         <Protected>
-
+            <NavBar/>
         </Protected>
     </React.StrictMode>
 );
