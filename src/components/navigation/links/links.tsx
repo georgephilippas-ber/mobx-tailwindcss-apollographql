@@ -20,5 +20,5 @@ export function ProfileLink()
 
 export function LogOutLink()
 {
-    return <DrawerLink label={"Exit"} onClick={() => globalAuthentication.logout(true)} Icon={LogOut}/>
+    return <DrawerLink label={"Exit"} onClick={() => globalAuthentication.logout()} Icon={LogOut}/>
 }

@@ -15,6 +15,7 @@ import {MainScreen} from "./components/navigation/navigation";
 import {HomeLink, LogOutLink, ProfileLink} from "./components/navigation/links/links";
 import {Default} from "./features/default/default";
 import {Profile} from "./features/profile/profile";
+import {Backend} from "./configuration/configuration";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -57,7 +58,6 @@ root.render(
         </BrowserRouter>
     </React.StrictMode>
 );
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

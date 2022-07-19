@@ -1,6 +1,7 @@
 import {faker} from "@faker-js/faker";
 import {makeAutoObservable} from "mobx";
 import axios from "axios";
+import {Backend} from "../configuration/configuration";
 
 export class Authentication
 {
@@ -8,6 +9,7 @@ export class Authentication
         agentId: number;
         username: string;
         email: string;
+        token: string;
     } | null;
 
     authenticationServerUrl: string;
@@ -35,7 +37,8 @@ export class Authentication
             this.agentDetails = {
                 agentId: -1,
                 username: faker.internet.userName().toLowerCase(),
-                email: faker.internet.email().toLowerCase()
+                email: faker.internet.email().toLowerCase(),
+                token: faker.datatype.uuid()
             }
 
             return true;
@@ -43,7 +46,7 @@ export class Authentication
         {
             try
             {
-                await axios.post("", {credentials});
+                this.agentDetails = (await axios.post(Backend.getLoginUrl(), {credentials})).data;
 
                 return true;
             } catch (e)
@@ -55,15 +58,19 @@ export class Authentication
 
     async logout(dummy: boolean = false): Promise<boolean>
     {
-        if (dummy)
-        {
-            this.agentDetails = null;
+        console.log(this.agentDetails?.token);
 
-            return true;
-        } else
-        {
-            return true;
-        }
+        if (!dummy && this.agentDetails)
+            await axios.post(Backend.getLogoutUrl(), {}, {
+                headers:
+                    {
+                        [Backend.getAuthorizationHeader()]: ["Bearer", this.agentDetails.token].join(" ")
+                    }
+            });
+
+        this.agentDetails = null;
+
+        return true;
     }
 
     isAuthenticated(): boolean

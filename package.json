@@ -10,12 +10,13 @@
     "@styled-icons/fa-solid": "^10.34.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
+    "@types/cors": "^2.8.12",
+    "@types/jest": "^28.1.6",
     "@types/node": "^16.11.44",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
+    "cors": "^2.8.5",
     "daisyui": "^2.19.0",
     "graphql": "^16.5.0",
     "mobx": "^6.6.1",
@@ -31,7 +32,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

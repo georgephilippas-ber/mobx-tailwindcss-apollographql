@@ -70,8 +70,6 @@ function validateCredentials(credentials: string[]): boolean
 
 export function Login(props: any)
 {
-    let authenticationObservable = useLocalObservable(() => globalAuthentication);
-
     let [credentials, setCredentials] = useState<string []>([]);
 
     let [methodPasskey, setMethodPasskey] = useState<boolean>(true);
@@ -88,7 +86,7 @@ export function Login(props: any)
             setModal({...modal, validationFailure: true});
 
             setTimeout(() => setModal({...modal, validationFailure: false}), 4_096);
-        } else if (!(await globalAuthentication.login(credentials, "success")))
+        } else if (!(await globalAuthentication.login(credentials)))
         {
             setModal({...modal, loginFailure: true});
 
